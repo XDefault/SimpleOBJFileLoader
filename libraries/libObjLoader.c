@@ -88,7 +88,15 @@ void LoadOBJModel(FILE *modelFile,Mesh *mesh){
 
 stringList *CreateStringList(){
     stringList* new_node = (stringList*) malloc(sizeof(stringList));
+    if(new_node == NULL){
+        printf("ERROR! Cannot create StringList\n");
+        exit(-1);
+    }
     new_node->data = malloc(sizeof(stringData) * 2);
+    if(new_node->data == NULL){
+        printf("ERROR! Cannot alloc string data\n");
+        exit(-1);
+    }
     new_node->Lenght = 0;
     
     return new_node;

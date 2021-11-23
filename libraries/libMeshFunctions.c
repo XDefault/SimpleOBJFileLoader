@@ -4,7 +4,17 @@
 
 Coord *CreateCoordList(){
     Coord* new_node = (Coord*) malloc(sizeof(Coord));
+    if(new_node == NULL){
+        printf("ERROR! Cannot create CoordList\n");
+        exit(-1);
+    }
+
     new_node->data = malloc(sizeof(DataCoord) * 2);
+    if(new_node->data == NULL){
+        printf("ERROR! Cannot alloc coord data\n");
+        exit(-1);
+    }
+
     new_node->Lenght = 0;
     
     return new_node;
@@ -40,7 +50,17 @@ void PrintCoordList(Coord* node){
 
 Face *CreateFaceList(){
     Face* new_node = (Face*) malloc(sizeof(Face));
+    if(new_node == NULL){
+        printf("ERROR! Cannot create CoordList\n");
+        exit(-1);
+    }
+
     new_node->data = malloc(sizeof(DataFace) * 2);
+    if(new_node->data == NULL){
+        printf("ERROR! Cannot alloc coord data\n");
+        exit(-1);
+    }
+
     new_node->Lenght = 0;
     return new_node;
 
@@ -75,6 +95,10 @@ void PrintFaceList(Face* node){
 
 Mesh *CreateMeshObject(){
     Mesh* newMesh = (Mesh*) malloc(sizeof(Mesh));
+    if(newMesh == NULL){
+        printf("ERROR! Cannot create MeshObject");
+        exit(-1);
+    }
 
     return newMesh;
 }
