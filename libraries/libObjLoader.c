@@ -27,9 +27,7 @@ void LoadOBJModel(FILE *modelFile,Mesh *mesh){
         exit(-3);
     }
     
-    stringList *fileDataList = (stringList*)malloc(sizeof(stringList));
-    fileDataList->lastNode = fileDataList;
-    fileDataList->Lenght = 1;
+    stringList *fileDataList = CreateStringList();
     Coord *vertex = CreateCoordList();
     Coord *normals = CreateCoordList();
     Face *faces = CreateFaceList();
@@ -42,7 +40,7 @@ void LoadOBJModel(FILE *modelFile,Mesh *mesh){
     
     char *listData = malloc(256 * sizeof(char));
     for(int i=0;i<fileDataList->Lenght;i++){
-        GetStringDataFromIndex(fileDataList,i,&listData);
+        listData = fileDataList->data[i].data;
 
         if(listData[0] == '#'){
             //comments
@@ -88,46 +86,31 @@ void LoadOBJModel(FILE *modelFile,Mesh *mesh){
     fclose(modelFile);
 }
 
+stringList *CreateStringList(){
+    stringList* new_node = (stringList*) malloc(sizeof(stringList));
+    new_node->data = malloc(sizeof(stringData) * 2);
+    new_node->Lenght = 0;
+    
+    return new_node;
+}
 
 void AddToStringList(stringList *head_ref,char *new_string){
-    stringList* new_node = (stringList*) malloc(sizeof(stringList));
-    stringList* head = (stringList*)head_ref;
-    stringList* currentNode = head_ref;
-
     size_t len = strlen(new_string);
 
     if(len > 256){
         len = 256;
     }
 
-    strncpy(new_node->data,new_string,len);
+    head_ref->Lenght +=1;
+    head_ref->data = realloc(head_ref->data,head_ref->Lenght * sizeof(stringData));
 
-    new_node->next = NULL;
+    strncpy(head_ref->data[head_ref->Lenght -1].data,new_string,len);
 
     if(head_ref == NULL){
         printf("ERROR! StringList head reference is NULL\n EROOR DETAILS:\n%s\n",strerror(errno));
         return;
     }
-
-    currentNode = head->lastNode;
-    
-    currentNode->next = new_node;
-    currentNode->lastNode = new_node;
-    head->lastNode = new_node;
-    head->Lenght = head->Lenght +1;
     return;
-}
-
-void GetStringDataFromIndex(stringList *head_ref,int index,char *out[]){
-    int i =0;
-    stringList* list = head_ref;
-
-    while(i < index){
-        i++;
-        list = list->next;
-    }
-
-    *out = list->data;
 }
 
 int CountAppearance(char *string,char c){

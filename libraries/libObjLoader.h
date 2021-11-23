@@ -5,15 +5,20 @@
 #include <string.h>
 #include "..\libraries\libMeshFunctions.h"
 
-struct stringListStruct{
+struct stringListData{
     char data[256];
+};
+
+typedef struct stringListData stringData;
+
+struct stringListStruct{
     int Lenght;
-    struct stringListStruct *next;  
-    struct stringListStruct *lastNode;
+    stringData *data;
 };
 
 typedef struct stringListStruct stringList;
 
+stringList *CreateStringList();
 void AddToStringList(stringList *head_ref,char *new_string);
 void GetStringDataFromIndex(stringList *head_ref,int index,char *out[]);
 
