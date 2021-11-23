@@ -90,6 +90,7 @@ init:
 	mkdir $(TEST)\bin
 	mkdir $(OBJ)
 	mkdir $(INCLU)
+	mkdir $(BUILD)
 
 $(TEST):
 	mkdir $@
