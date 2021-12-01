@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
-#include <GL\GLU.h>
+#include <GL/glu.h>
 #include <stdbool.h>
 #include <stdio.h>
 

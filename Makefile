@@ -6,11 +6,11 @@ LIBFLAGS= -fPIC -shared
 
 SDLINCLU = "-IC:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\include"
 SDLLIB=-"LC:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\lib"
-SDLFlAGS =-lmingw32 -lSDL2main -lSDL2
+SDLFlAGS =-lSDL2main -lSDL2
 NOSDLOUTPUT =-mwindows
-OPENGLFLAGS = -lopengl32 -lglu32
+OPENGLFLAGS =-lGLU -lGL
 
-FILESPATH="E:\Learning Languages\C\4 - LoadOBJModelToSLD"
+FILESPATH="/home/x/Code/C/Git/SimpleOBJFileLoader"
 
 OBJ=obj
 SRC=src
@@ -36,14 +36,14 @@ all: exec
 exec: buildFinalLib FinalFile FinalExec
 
 buildFinalLib:
-	$(CC) $(CFLAGS) $(LIB)\libMeshFunctions.c -o $(FILESPATH)\$(BUILD)\libMeshFunctions.lib $(LIBFLAGS)
-	$(CC) $(CFLAGS) $(LIBS) -o $(FILESPATH)\$(BUILD)\libObjLoader.lib -L$(FILESPATH)\$(TEST)\bin -I$(FILESPATH)\$(TEST) $(LIBFLAGS)
+	$(CC) $(CFLAGS) $(LIB)/libMeshFunctions.c -o $(BUILD)/libMeshFunctions.lib $(LIBFLAGS)
+	$(CC) $(CFLAGS) $(LIBS) -o $(BUILD)/libObjLoader.lib -L$(BUILD) -I$(BUILD) $(LIBFLAGS)
 
 FinalFile: buildFinalLib
-	$(CC) $(CFLAGS) $(LIBS) $(SRCS) -o $(BUILD)\main.exe -L$(FILESPATH)\$(TEST)\bin -I$(FILESPATH)\$(TEST) $(SDLINCLU) $(SDLLIB) $(SDLFlAGS) $(OPENGLFLAGS)
+	$(CC) $(CFLAGS) $(LIBS) $(SRCS) -o $(BUILD)/main -L$(BUILD) -I$(BUILD) $(SDLFlAGS) $(OPENGLFLAGS)
 
 FinalExec: FinalFile
-	$(BUILD)"\main.exe"
+	$(BUILD)/main
 #-------------------------------------------------------------------------
 
 #---Build Libs------------------------------------------------------------
@@ -74,15 +74,15 @@ testexec: $(OBJ) testbuild
 #-------------------------------------------------------------------------
 
 clean:
-	del *.o
-	del $(OBJ)\*.o
-	del $(TEST)\bin\*.o
-	del $(TEST)\bin\*.a
-	del $(OBJ)\$(LIB)\*.o
-	del $(OBJ)\$(LIB)\*.so
-	del $(OBJ)\$(LIB)\*.a
-	del $(BUILD)\*.exe
-	del $(BUILD)\*.lib
+#	rm *.o
+#	rm $(OBJ)/*.o
+#	rm $(TEST)/bin/*.o
+#	rm $(TEST)/bin/*.a
+#	rm $(OBJ)/$(LIB)/*.o
+#	rm $(OBJ)/$(LIB)/*.so
+#	rm $(OBJ)/$(LIB)/*.a
+	rm $(BUILD)/*.exe
+	rm $(BUILD)/*.lib
 
 init:
 	mkdir $(SRC)

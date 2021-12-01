@@ -1,5 +1,5 @@
-#include "..\libraries\libObjLoader.h"
-#include "..\libraries\libMeshFunctions.h"
+#include "libObjLoader.h"
+#include "libMeshFunctions.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>

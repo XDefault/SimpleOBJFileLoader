@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "..\libraries\libMeshFunctions.h"
+#include "libMeshFunctions.h"
 
 struct stringListData{
     char data[256];
