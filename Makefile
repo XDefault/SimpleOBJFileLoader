@@ -4,13 +4,14 @@ CFLAGS=-g -Wall
 
 LIBFLAGS= -fPIC -shared
 
-SDLINCLU = "-IC:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\include"
-SDLLIB=-"LC:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\lib"
+SDLWININCLU = ""
+SDLWINLIB=""
+
 SDLFlAGS =-lSDL2main -lSDL2
 NOSDLOUTPUT =-mwindows
 OPENGLFLAGS =-lGLU -lGL
 
-FILESPATH="/home/x/Code/C/Git/SimpleOBJFileLoader"
+FILESPATH=$(abspath $(lastword $(MAKEFILE_LIST)))
 
 OBJ=obj
 SRC=src
@@ -66,7 +67,7 @@ buildLib:
 	$(CC) $(CFLAGS) $(LIBS) -o $(FILESPATH)\$(OBJ)\$(LIB)\libObjLoader.a -L$(FILESPATH)\$(OBJ)\$(LIB) -I$(FILESPATH)\$(OBJ) $(LIBFLAGS)
 
 testbuild: buildLib
-	$(CC) $(CFLAGS) $(LIBS) $(SRCS) -o $(FILESPATH)\$(OBJ)\testSRCs.o -L$(FILESPATH)\$(OBJ)\$(LIB) -I$(FILESPATH)\$(OBJ) $(SDLINCLU) $(SDLLIB) $(SDLFlAGS) $(OPENGLFLAGS)
+	$(CC) $(CFLAGS) $(LIBS) $(SRCS) -o $(FILESPATH)\$(OBJ)\testSRCs.o -L$(FILESPATH)\$(OBJ)\$(LIB) -I$(FILESPATH)\$(OBJ) $(SDLWININCLU) $(SDLWINLIB) $(SDLFlAGS) $(OPENGLFLAGS)
 
 testexec: $(OBJ) testbuild
 	$(FILESPATH)\$(OBJ)\testSRCs.o
@@ -74,15 +75,15 @@ testexec: $(OBJ) testbuild
 #-------------------------------------------------------------------------
 
 clean:
-#	rm *.o
-#	rm $(OBJ)/*.o
-#	rm $(TEST)/bin/*.o
-#	rm $(TEST)/bin/*.a
-#	rm $(OBJ)/$(LIB)/*.o
-#	rm $(OBJ)/$(LIB)/*.so
-#	rm $(OBJ)/$(LIB)/*.a
-	rm $(BUILD)/*.exe
-	rm $(BUILD)/*.lib
+#	del *.o
+#	del $(OBJ)/*.o
+#	del $(TEST)/bin/*.o
+#	del $(TEST)/bin/*.a
+#	del $(OBJ)/$(LIB)/*.o
+#	del $(OBJ)/$(LIB)/*.so
+#	del $(OBJ)/$(LIB)/*.a
+	del $(BUILD)/*.exe
+	del $(BUILD)/*.lib
 
 init:
 	mkdir $(SRC)
